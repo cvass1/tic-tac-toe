@@ -15,3 +15,30 @@ The rules of tic tac toe are as follows:
 - A game is over when all fields are taken
 
 Build the business logic for a game of tic tac toe. It should be easy to implement a working game of tic tac toe by combining your code with any user interface, whether web or command line.
+
+## Example
+
+```ruby
+// irb
+require './board.rb'
+require './player.rb'
+require './game.rb'
+
+board = Board.new
+player_1 = Player.new("Caz","X")
+player_2 = Player.new("Pip","O")
+game = Game.new(player_1,player_2,board)
+
+game.make_move(2,2)
+game.switch_player
+game.make_move(1,1)
+game.switch_player
+game.make_move(1,2)
+game.switch_player
+game.make_move(2,1)
+game.switch_player
+game.make_move(3,2)
+
+board.get_state // returns [[nil, nil, nil], ["X", "X", "X"], ["Y", "Y", nil]]
+
+```

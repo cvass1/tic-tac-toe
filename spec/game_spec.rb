@@ -1,9 +1,6 @@
 require 'game'
 
 describe Game do
-  player_1 = double("player_1", :name => "Player 1 Name", :symbol => "X")
-  player_2 = double("player_2", :name => "Player 2 Name", :symbol => "O")
-
   context 'Initialisation:' do
     it 'initialises with two players and a board' do
       player_1 = double("player_1", :name => "Player 1 Name", :symbol => "X")
@@ -48,32 +45,42 @@ describe Game do
   end
 
   context "game management" do
-    it 'switches players after a sucessful move' do
+    it 'switches player from player 1 to player 2' do
       player_1 = double("player_1", :name => "Player 1 Name", :symbol => "X")
       player_2 = double("player_2", :name => "Player 2 Name", :symbol => "O")
       board = double("board", :is_empty => true, :update_state => nil )
 
       game = Game.new(player_1, player_2, board)
 
-      game.make_move(1,1)
-      result = game.current_player()
+      game.switch_player
+      result = game.current_player
       expect(result).to eq player_2
     end
 
-    it 'doesnt switch players after an unsuccesful move' do
+    it 'switches player back from player 2 to player 1' do
       player_1 = double("player_1", :name => "Player 1 Name", :symbol => "X")
       player_2 = double("player_2", :name => "Player 2 Name", :symbol => "O")
       board = double("board", :is_empty => false, :update_state => nil )
 
       game = Game.new(player_1, player_2, board)
 
-      game.make_move(1,1)
-      result = game.current_player()
+      game.switch_player
+      game.switch_player
+      result = game.current_player
       expect(result).to eq player_1
     end
   end
   context "checks status of the game" do
-    it 'returns incomplete' do 
+    it 'returns incomplete when no moves made' do 
+      player_1 = double("player_1", :name => "Player 1 Name", :symbol => "X")
+      player_2 = double("player_2", :name => "Player 2 Name", :symbol => "O")
+      board = double("board", :is_empty => false, :update_state => nil )
+
+      game = Game.new(player_1, player_2, board)
+
+      result = game.status
+      expect(result).to eq player_1
+
       
     end
   end
