@@ -20,13 +20,13 @@ Build the business logic for a game of tic tac toe. It should be easy to impleme
 
 ```ruby
 // irb
-require './board.rb'
-require './player.rb'
-require './game.rb'
+require './lib/board.rb'
+require './lib/player.rb'
+require './lib/game.rb'
 
 board = Board.new
-player_1 = Player.new("Caz","X")
-player_2 = Player.new("Pip","O")
+player_1 = Player.new('Caz','X')
+player_2 = Player.new('Pip','O')
 game = Game.new(player_1,player_2,board)
 
 game.make_move(2,2)
@@ -36,9 +36,12 @@ game.switch_player
 game.make_move(1,2)
 game.switch_player
 game.make_move(2,1)
+game.status # returns 'incomplete'
+board.state # returns [[nil, nil, nil], ["X", "X", nil], ["O", "O", nil]]
+game.winner # returns nil
 game.switch_player
 game.make_move(3,2)
-
-board.get_state // returns [[nil, nil, nil], ["X", "X", "X"], ["Y", "Y", nil]]
-
+game.status # returns 'complete'
+board.state # returns [[nil, nil, nil], ["X", "X", "X"], ["O", "O", nil]]
+game.winner # returns 'Caz'
 ```
