@@ -14,6 +14,32 @@ The rules of tic tac toe are as follows:
 - A game is over if a player wins
 - A game is over when all fields are taken
 
+## Design
+
+A three class design has been chosen:
+
+Class design plan:
+![plan document](images/tic-tac-toe-class-design.png)
+
+## Setup
+
+```zsh
+bundle install
+
+# To get details tests and test coverage:
+rspec
+```
+
+## Built with
+
+#### Languages used:
+
+- Ruby
+
+#### Testing environment:
+
+- RSpec
+
 ## Example
 
 ```ruby
