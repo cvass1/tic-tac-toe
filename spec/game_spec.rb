@@ -10,6 +10,7 @@ describe Game do
       game = Game.new(player_1, player_2, board)
       expect(game).to be_a(Game)
     end
+
     it 'sets the current player to the first player entered' do
       player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
       player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
@@ -74,12 +75,133 @@ describe Game do
     it 'returns incomplete when no moves made' do
       player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
       player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
-      board = double('board', is_empty: false, update_state: nil)
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, nil],[nil, nil, nil],[nil, nil, nil]])
 
       game = Game.new(player_1, player_2, board)
 
       result = game.status
-      expect(result).to eq player_1
+      expect(result).to eq 'incomplete'
     end
+
+    it 'returns incomplete when no player has claimed a row' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [['Y', 'X', 'X'],['X', 'X', 'Y'],['Y', 'Y', 'X']])
+
+      game = Game.new(player_1, player_2, board)
+
+      result = game.status
+      expect(result).to eq 'incomplete'
+    end
+    it 'returns complete when middle horizontal line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, nil],['X', 'X', 'X'],[nil, nil, nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when middle horizontal line is claimed by O' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, nil],['O', 'O', 'O'],[nil, nil, nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when top horizontal line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [['X', 'X', 'X'],[nil, nil, nil],[nil, nil, nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when top horizontal line is claimed by O' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [['O', 'O', 'O'],[nil, nil, nil],[nil, nil, nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when bottom horizontal line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, nil],[nil, nil, nil],['X', 'X', 'X']])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when bottom horizontal line is claimed by O' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, nil],[nil, nil, nil],['O', 'O', 'O']])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when first vertical line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [['X', nil, nil],['X', nil, nil],['X', nil, nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when second vertical line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, 'X', nil],[nil, 'X', nil],[nil, 'X', nil]])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    it 'returns complete when third vertical line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, nil, 'X'],[nil, nil, 'X'],[nil, nil, 'X']])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
+    xit 'returns complete when first diagonal line is claimed by X' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [['X', nil, nil],[nil, 'X', nil],[nil, nil, 'X']])
+
+      game = Game.new(player_1, player_2, board)
+  
+      result = game.status
+      expect(result).to eq 'complete'
+    end
+
   end
 end

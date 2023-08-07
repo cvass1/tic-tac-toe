@@ -22,6 +22,32 @@ class Game
   end
 
   def status
-    @board.state
+    if horizontal_win || vertical_win || diagonal_win
+      'complete'
+    else
+      'incomplete'
+    end
   end
+
+  private
+
+  def horizontal_win
+    @board.state.any? do |row|
+      row.uniq.length == 1 && row.include?(nil) == false
+    end
+  end
+
+  def vertical_win
+    @board.state[0].each_with_index.any? do |element, index|
+      vertcial = @board.state.map do |row|
+        row[index]
+      end
+      vertcial.uniq.length == 1 && vertcial.include?(nil) == false
+    end
+  end
+
+  def diagonal_win
+    
+  end
+
 end
