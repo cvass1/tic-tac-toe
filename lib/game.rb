@@ -6,6 +6,7 @@ class Game
     @player_2 = player_2
     @current_player = @player_1
     @board = board
+    @winner_symbol = nil
   end
 
   def make_move(x, y)
@@ -29,10 +30,16 @@ class Game
     end
   end
 
+  def winner
+    @player_1.symbol == @winner_symbol ? @player_1.name : @player_2.name
+  end
+
   private
 
   def winning_line?(array)
-    array.uniq.length == 1 && array.include?(nil) == false
+    is_a_winner = array.uniq.length == 1 && array.include?(nil) == false
+    @winner_symbol = array[0] if is_a_winner
+    is_a_winner
   end
 
   def horizontal_win
