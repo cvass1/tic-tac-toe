@@ -23,7 +23,7 @@ class Game
   end
 
   def status
-    if horizontal_win || vertical_win || diagonal_win
+    if horizontal_win || vertical_win || diagonal_win || board_filled
       'complete'
     else
       'incomplete'
@@ -73,5 +73,9 @@ class Game
     return true if winning_line?(second_diagonal)
 
     false
+  end
+
+  def board_filled
+    @board.state.none? { |row| row.include?(nil) }
   end
 end

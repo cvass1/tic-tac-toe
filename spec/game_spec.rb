@@ -83,7 +83,17 @@ describe Game do
       expect(result).to eq 'incomplete'
     end
 
-    it 'returns incomplete when no player has claimed a row' do
+    it 'returns incomplete when no player has claimed a row and still available fields' do
+      player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
+      player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
+      board = double('board', is_empty: false, update_state: nil, state: [[nil, 'X', 'X'], ['X', 'X', 'Y'], ['Y', 'Y', 'X']])
+
+      game = Game.new(player_1, player_2, board)
+
+      result = game.status
+      expect(result).to eq 'incomplete'
+    end
+    it 'returns complete when no player has claimed a row but all fields are filled' do
       player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
       player_2 = double('player_2', name: 'Player 2 Name', symbol: 'O')
       board = double('board', is_empty: false, update_state: nil, state: [['Y', 'X', 'X'], ['X', 'X', 'Y'], ['Y', 'Y', 'X']])
@@ -91,7 +101,7 @@ describe Game do
       game = Game.new(player_1, player_2, board)
 
       result = game.status
-      expect(result).to eq 'incomplete'
+      expect(result).to eq 'complete'
     end
     it 'returns complete when middle horizontal line is claimed by X' do
       player_1 = double('player_1', name: 'Player 1 Name', symbol: 'X')
