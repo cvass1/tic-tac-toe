@@ -31,23 +31,33 @@ class Game
 
   private
 
+  def winning_line?(array)
+    array.uniq.length == 1 && array.include?(nil) == false
+  end
+
   def horizontal_win
     @board.state.any? do |row|
-      row.uniq.length == 1 && row.include?(nil) == false
+      winning_line?(row)
     end
   end
 
   def vertical_win
     @board.state[0].each_with_index.any? do |element, index|
-      vertcial = @board.state.map do |row|
+      vertical = @board.state.map do |row|
         row[index]
       end
-      vertcial.uniq.length == 1 && vertcial.include?(nil) == false
+        winning_line?(vertical)
     end
   end
 
   def diagonal_win
-    
+    board_size = @board.state.size
+    first_diagonal = (0...board_size).map { |i| @board.state[i][i] }
+    return true if winning_line?(first_diagonal)
+
+    second_diagonal = (0...board_size).map { |i| @board.state[i][board_size - i - 1] }
+    return true if winning_line?(second_diagonal)
+  false
   end
 
 end
