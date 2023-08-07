@@ -23,7 +23,7 @@ class Game
   end
 
   def status()
-    
+    @board.get_state
   end
 
 end
