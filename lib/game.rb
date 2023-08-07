@@ -31,7 +31,14 @@ class Game
   end
 
   def winner
-    @player_1.symbol == @winner_symbol ? @player_1.name : @player_2.name
+    case @winner_symbol
+    when nil
+      nil
+    when @player_1.symbol
+      @player_1.name
+    when @player_2.symbol
+      @player_2.name
+    end
   end
 
   private
@@ -49,11 +56,11 @@ class Game
   end
 
   def vertical_win
-    @board.state[0].each_with_index.any? do |element, index|
+    @board.state[0].each_with_index.any? do |_element, index|
       vertical = @board.state.map do |row|
         row[index]
       end
-        winning_line?(vertical)
+      winning_line?(vertical)
     end
   end
 
@@ -64,7 +71,7 @@ class Game
 
     second_diagonal = (0...board_size).map { |i| @board.state[i][board_size - i - 1] }
     return true if winning_line?(second_diagonal)
-  false
-  end
 
+    false
+  end
 end
