@@ -16,7 +16,7 @@ The rules of tic tac toe are as follows:
 
 ## Design
 
-A three class design has been chosen:
+A three class design has been chosen with a Board class, a Player class and a Game class.
 
 Class design plan:
 ![plan document](images/tic-tac-toe-class-design.png)
@@ -26,7 +26,7 @@ Class design plan:
 ```zsh
 bundle install
 
-# To get details tests and test coverage:
+# To get details on tests and test coverage:
 rspec
 ```
 
