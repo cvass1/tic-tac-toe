@@ -16,7 +16,7 @@ The rules of tic tac toe are as follows:
 
 ## Design
 
-A three class design has been chosen with a Board class, a Player class and a Game class.
+A three class design has been chosen with a Board class, a Player class and a Game class. Each method has been designed following the single responsibility principle to keep the code concise and flexible. There is additional scope to code a gameplay loop to link methods together (e.g. if make_move is successful, automatically call the switch_player method).
 
 Class design plan:
 ![plan document](images/tic-tac-toe-class-design.png)
